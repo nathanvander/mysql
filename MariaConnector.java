@@ -108,7 +108,14 @@ public class MariaConnector implements Monty {
 
 		//Retrieves the next row of a result set.  Returns null when there are no more rows to retrieve.
 		public String[] fetch_row() {
-			return api.mysql_fetch_row(getPointer());
+			Pointer psa=api.mysql_fetch_row(getPointer());
+			if (psa==null) {
+				return null;
+			} else {
+				int n=num_fields();
+				String[] row=psa.getStringArray(0,n);
+				return row;
+			}
 		}
 
 		//there is also fetch_fields, but I think I prefer to do them one at a time
@@ -135,8 +142,10 @@ public class MariaConnector implements Monty {
 		public void mysql_free_result(Pointer result);
 		//unsigned int mysql_num_fields(MYSQL_RES *result)
 		public int mysql_num_fields(Pointer result);
+
 		//MYSQL_ROW mysql_fetch_row(MYSQL_RES *result)
-		public String[] mysql_fetch_row(Pointer result);
+		//this is a pointer to a string array
+		public Pointer mysql_fetch_row(Pointer result);
 		//MYSQL_FIELD *mysql_fetch_field_direct(MYSQL_RES *result, unsigned int fieldnr)
 		public Field mysql_fetch_field_direct(Pointer result,int fieldno);
 	}

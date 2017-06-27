@@ -1,6 +1,7 @@
 package mysql;
 import com.sun.jna.Structure;
 import com.sun.jna.Pointer;
+import com.sun.jna.IntegerType;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -72,6 +73,16 @@ public interface Monty {
 	}
 
 	//===========================================
+	public class Uint32 extends IntegerType {
+    	public Uint32() {
+	        this(0);
+	    }
+
+	    public Uint32(int value) {
+	        super(4, value, true);
+	    }
+	}
+
 	//this is metadata about a field
 	//from mysql.h
 	//  typedef struct st_mysql_field {
@@ -113,52 +124,53 @@ public interface Monty {
 		public String db;
 		public String catalog;
 		public String def;
-		public long length;
-		public long max_length;
-		public int name_length;
-		public int org_name_length;
-		public int table_length;
-		public int org_table_length;
-		public int db_length;
-		public int catalog_length;
-		public int def_length;
-		public int flags;
-		public int decimals;
-		public int charsetnr;
-		public enum_field_types type;
-		public Object extension;	//this is a Pointer but we don't want to use it
+		public Uint32 length;
+		public Uint32 max_length;
+		public Uint32 name_length;
+		public Uint32 org_name_length;
+		public Uint32 table_length;
+		public Uint32 org_table_length;
+		public Uint32 db_length;
+		public Uint32 catalog_length;
+		public Uint32 def_length;
+		public Uint32 flags;
+		public Uint32 decimals;
+		public Uint32 charsetnr;
+		//public enum_field_types type;
+		public int type;
+		public Pointer extension;	//this is a Pointer but we don't want to use it
 	}
 
 	//===============================================
 	//adapted from mysql_com.h
-	public static interface enum_field_types {
-		public static final int MYSQL_TYPE_DECIMAL = 0;
-		public static final int MYSQL_TYPE_TINY = 1;
-        public static final int MYSQL_TYPE_SHORT = 2;
-        public static final int MYSQL_TYPE_LONG = 3;
-        public static final int MYSQL_TYPE_FLOAT = 4;
-        public static final int MYSQL_TYPE_DOUBLE = 5;
-        public static final int MYSQL_TYPE_NULL = 6;
-        public static final int MYSQL_TYPE_TIMESTAMP= 7;
-        public static final int MYSQL_TYPE_LONGLONG=8;
-        public static final int MYSQL_TYPE_INT24=9;
-        public static final int MYSQL_TYPE_DATE=10;
-        public static final int MYSQL_TYPE_TIME=11;
-        public static final int MYSQL_TYPE_DATETIME=12;
-        public static final int MYSQL_TYPE_YEAR=13;
-        public static final int MYSQL_TYPE_NEWDATE=14;
-        public static final int MYSQL_TYPE_VARCHAR=15;
-        public static final int MYSQL_TYPE_BIT=16;
-        public static final int MYSQL_TYPE_NEWDECIMAL=246;
-        public static final int MYSQL_TYPE_ENUM=247;
-        public static final int MYSQL_TYPE_SET=248;
-        public static final int MYSQL_TYPE_TINY_BLOB=249;
-        public static final int MYSQL_TYPE_MEDIUM_BLOB=250;
-        public static final int MYSQL_TYPE_LONG_BLOB=251;
-        public static final int MYSQL_TYPE_BLOB=252;
-        public static final int MYSQL_TYPE_VAR_STRING=253;
-        public static final int MYSQL_TYPE_STRING=254;
-        public static final int MYSQL_TYPE_GEOMETRY=255;
-	}
+	//public static interface enum_field_types {
+	//	public static final int MYSQL_TYPE_DECIMAL = 0;
+	//	public static final int MYSQL_TYPE_TINY = 1;
+    //    public static final int MYSQL_TYPE_SHORT = 2;
+    //    public static final int MYSQL_TYPE_LONG = 3;
+    //    public static final int MYSQL_TYPE_FLOAT = 4;
+    //    public static final int MYSQL_TYPE_DOUBLE = 5;
+    //    public static final int MYSQL_TYPE_NULL = 6;
+    //    public static final int MYSQL_TYPE_TIMESTAMP= 7;
+    //    public static final int MYSQL_TYPE_LONGLONG=8;
+    //    public static final int MYSQL_TYPE_INT24=9;
+    //    public static final int MYSQL_TYPE_DATE=10;
+    //    public static final int MYSQL_TYPE_TIME=11;
+    //    public static final int MYSQL_TYPE_DATETIME=12;
+    //    public static final int MYSQL_TYPE_YEAR=13;
+    //    public static final int MYSQL_TYPE_NEWDATE=14;
+    //    public static final int MYSQL_TYPE_VARCHAR=15;
+    //    public static final int MYSQL_TYPE_BIT=16;
+    //    public static final int MYSQL_TYPE_NEWDECIMAL=246;
+    //    public static final int MYSQL_TYPE_ENUM=247;
+    //    public static final int MYSQL_TYPE_SET=248;
+    //    public static final int MYSQL_TYPE_TINY_BLOB=249;
+    //    public static final int MYSQL_TYPE_MEDIUM_BLOB=250;
+    //    public static final int MYSQL_TYPE_LONG_BLOB=251;
+    //    public static final int MYSQL_TYPE_BLOB=252;
+    //    public static final int MYSQL_TYPE_VAR_STRING=253;
+    //    public static final int MYSQL_TYPE_STRING=254;
+    //    public static final int MYSQL_TYPE_GEOMETRY=255;
+	//}
 
 }
